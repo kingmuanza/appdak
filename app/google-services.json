@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "448692904510",
+    "project_id": "dak-security",
+    "storage_bucket": "dak-security.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:448692904510:android:5f09842843bb5bc5e6276f",
+        "android_client_info": {
+          "package_name": "cm.security.dak"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "448692904510-ok0n54s4r73ev1rsf7qqnlfb3uicnjvj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJzWYAmKApQaK1ZD3TokjyHt0RTL7mji0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "448692904510-ok0n54s4r73ev1rsf7qqnlfb3uicnjvj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:448692904510:android:a1d5c5ba938b92b7e6276f",
+        "android_client_info": {
+          "package_name": "com.security.dak"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "448692904510-ok0n54s4r73ev1rsf7qqnlfb3uicnjvj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJzWYAmKApQaK1ZD3TokjyHt0RTL7mji0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "448692904510-ok0n54s4r73ev1rsf7qqnlfb3uicnjvj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

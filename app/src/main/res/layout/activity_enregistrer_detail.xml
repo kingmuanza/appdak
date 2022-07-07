@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="32dp"
+    tools:context="cm.security.dak.EnregistrerDetailActivity">
+
+    <TextView
+        android:id="@+id/enregistrer_detail_nom_vigile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nom du vigile"
+        android:textSize="32dp"
+        android:layout_marginBottom="16dp"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Impossible de démarrer le lecteur d'empreinte. Veuilles redémarrer l'application"
+        android:textSize="18dp"
+        android:layout_marginBottom="16dp"
+        />
+
+</LinearLayout>

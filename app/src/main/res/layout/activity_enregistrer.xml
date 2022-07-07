@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context="cm.security.dak.EnregistrerActivity">
+
+    <TextView
+        android:id="@+id/enregistrer_texte"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Veuillez selectionner le vigile"
+        android:textSize="20dp"
+        android:layout_marginBottom="12dp"
+        />
+
+    <EditText
+        android:id="@+id/enregistrer_rechercher"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:hint="Rechercher"
+        />
+
+
+    <ListView
+        android:id="@+id/enregistrer_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>

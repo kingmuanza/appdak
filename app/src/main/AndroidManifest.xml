@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="cm.security.dak">
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Dak">
+        <activity
+            android:name=".VigileDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".VigileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PosteDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PosteActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AdminActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ChoixActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ZoneActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AbsenceDetailActivity"
+            android:exported="true" />
+        <activity
+            android:name="com.authentec.java.ptapi.Technocrat.basicsample.SampleActivity"
+            android:exported="true" />
+        <activity
+            android:name="com.authentec.java.ptapi.Technocrat.basicsample.FPDisplay"
+            android:exported="true" />
+        <activity
+            android:name=".AbsenceActivity"
+            android:exported="true" />
+        <activity
+            android:name=".EnregistrerDetailActivity"
+            android:exported="true" />
+        <activity
+            android:name=".EnregistrerActivity"
+            android:exported="true" />
+        <activity
+            android:name=".PointageActivity"
+            android:exported="true" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true" />
+    </application>
+
+</manifest>

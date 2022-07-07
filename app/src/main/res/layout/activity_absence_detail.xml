@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="32dp"
+    tools:context="cm.security.dak.AbsenceDetailActivity">
+
+    <TextView
+        android:id="@+id/absence_detail_nom_vigile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nom du vigile"
+        android:textSize="32dp"
+        android:layout_marginBottom="4dp"
+        />
+
+    <TextView
+        android:id="@+id/absence_detail_id_vigile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ID du vigile"
+        android:textSize="16dp"
+        android:layout_marginBottom="32dp"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ajouter un commentaire"
+        android:textSize="18dp"
+        android:layout_marginBottom="16dp"
+        />
+
+
+    <EditText
+        android:id="@+id/absence_commentaire"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+
+        android:hint="Rechercher"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Signaler"
+        />
+</LinearLayout>

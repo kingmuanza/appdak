@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="32dp"
+    tools:context="cm.security.dak.PointageActivity">
+
+    <TextView
+        android:id="@+id/pointage_titre"
+        android:layout_marginBottom="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Enregistrer le pointage"
+        android:textSize="30dp"
+        />
+
+    <TextView
+        android:id="@+id/pointage_description"
+        android:layout_marginBottom="32dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Veuillez mettre votre doigt sur le lecteur d'empreinte"
+        android:textSize="20dp"
+        />
+
+    <Button
+        android:id="@+id/pointage_bouton"
+        android:text="Simuler un pointage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

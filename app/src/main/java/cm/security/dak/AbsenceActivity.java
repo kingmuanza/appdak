@@ -57,15 +57,12 @@ public class AbsenceActivity extends AppCompatActivity {
     }
 
     void createList() {
-
         ArrayAdapter<String> arr;
         arr = new ArrayAdapter<String>(
                 this,
                 R.layout.support_simple_spinner_dropdown_item,
                 resulatsString);
         liste.setAdapter(arr);
-
-
         liste.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {

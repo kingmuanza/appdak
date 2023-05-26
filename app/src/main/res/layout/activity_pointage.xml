@@ -5,31 +5,71 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="32dp"
     tools:context="cm.security.dak.PointageActivity">
 
-    <TextView
-        android:id="@+id/pointage_titre"
-        android:layout_marginBottom="16dp"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/pointage_activity_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:background="#303030"
+        android:elevation="4dp"
+        android:paddingStart="32dp"
+        android:paddingLeft="32dp"
+        app:subtitle="Demander au vigile de mettre son pouce droit"
+        app:subtitleTextColor="#ddd"
+        app:title="Enregistrer un pointage"
+        app:titleTextColor="#fff" />
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Enregistrer le pointage"
-        android:textSize="30dp"
-        />
+        android:layout_marginBottom="32dp">
 
-    <TextView
-        android:id="@+id/pointage_description"
-        android:layout_marginBottom="32dp"
+        <!-- res/layout/example_activity.xml -->
+        <androidx.fragment.app.FragmentContainerView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/pointage_activity_fragment_localisation_actuelle"
+            android:name="cm.security.dak.fragments.LocalisationActuelleFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Veuillez mettre votre doigt sur le lecteur d'empreinte"
-        android:textSize="20dp"
-        />
+        android:orientation="vertical"
+        android:padding="32dp">
 
-    <Button
-        android:id="@+id/pointage_bouton"
-        android:text="Simuler un pointage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/pointage_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:text="Cliquez que sur bouton pour commencer"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/EnrollmentTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="0dp"
+            android:text="En attente..."
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/activity_pointage_affectation_localisation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:text=""
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/pointage_acivity_bouton_pointer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Effectuer un pointage" />
+
+
+    </LinearLayout>
 
 </LinearLayout>

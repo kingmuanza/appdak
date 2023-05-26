@@ -3,6 +3,7 @@ package cm.security.dak;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -36,10 +37,12 @@ import cm.security.dak.services.GPSTracker;
 public class PosteDetailActivity extends AppCompatActivity {
 
     GPSTracker mGPSTracker;
-    TextView libelle;
-    TextView idposte;
-    TextView coordonnees;
+    TextView latitude;
+    TextView longitude;
+    Toolbar toolbar;
     int id;
+
+    int step = 0;
 
     LocationManager locationManager;
     int LOCATION_REFRESH_TIME = 15000; // 15 seconds to update
@@ -55,7 +58,7 @@ public class PosteDetailActivity extends AppCompatActivity {
             Log.d("MUANZA", "latitude mGPSTracker : " + latitude);
             Log.d("MUANZA", "longitude mGPSTracker : " + longitude);
             if (longitude != -1 && latitude != -1) {
-                updateCoordonnees(latitude, longitude);
+                updateCoordonnees(latitude, longitude, view);
             } else {
                 Toast.makeText(PosteDetailActivity.this, "Impossible de récupérer les coordonnées", Toast.LENGTH_LONG).show();
             }
@@ -64,7 +67,45 @@ public class PosteDetailActivity extends AppCompatActivity {
         }
     }
 
-    public void updateCoordonnees(double latitude, double longitude) {
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public void getLocation1(View view) {
+        Log.d("MUANZA", "getLocation mGPSTracker : ");
+        mGPSTracker = new GPSTracker(PosteDetailActivity.this);
+        if (mGPSTracker.canGetLocation()) {
+            double latitude = mGPSTracker.getLatitude();
+            double longitude = mGPSTracker.getLongitude();
+            Log.d("MUANZA", "latitude mGPSTracker : " + latitude);
+            Log.d("MUANZA", "longitude mGPSTracker : " + longitude);
+            if (longitude != -1 && latitude != -1) {
+                updateCoordonnees1(latitude, longitude, view);
+            } else {
+                Toast.makeText(PosteDetailActivity.this, "Impossible de récupérer les coordonnées", Toast.LENGTH_LONG).show();
+            }
+        } else {
+            mGPSTracker.showSettingsAlert();
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public void getLocation2(View view) {
+        Log.d("MUANZA", "getLocation mGPSTracker : ");
+        mGPSTracker = new GPSTracker(PosteDetailActivity.this);
+        if (mGPSTracker.canGetLocation()) {
+            double latitude = mGPSTracker.getLatitude();
+            double longitude = mGPSTracker.getLongitude();
+            Log.d("MUANZA", "latitude mGPSTracker : " + latitude);
+            Log.d("MUANZA", "longitude mGPSTracker : " + longitude);
+            if (longitude != -1 && latitude != -1) {
+                updateCoordonnees2(latitude, longitude, view);
+            } else {
+                Toast.makeText(PosteDetailActivity.this, "Impossible de récupérer les coordonnées", Toast.LENGTH_LONG).show();
+            }
+        } else {
+            mGPSTracker.showSettingsAlert();
+        }
+    }
+
+    public void updateCoordonnees(double latitude, double longitude, View view) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         Map<String, Object> update = new HashMap<>();
@@ -72,12 +113,62 @@ public class PosteDetailActivity extends AppCompatActivity {
         update.put("latitude", latitude);
 
         db.collection("poste").document(id + "").set(update, SetOptions.merge()).addOnCompleteListener(new OnCompleteListener<Void>() {
+
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
-                    TextView coordonnees = findViewById(R.id.poste_detail_coordonnees);
-                    coordonnees.setText("Longitude : " + longitude + "; Latitude : " + latitude);
-                    Toast.makeText(PosteDetailActivity.this, "Coordonnées géographiques mises à jour", Toast.LENGTH_LONG).show();
+                    TextView latitudeTextView = findViewById(R.id.poste_detail_latitude);
+                    TextView longitudeTextView = findViewById(R.id.poste_detail_longitude);
+                    latitudeTextView.setText(latitude + "");
+                    longitudeTextView.setText(longitude + "");
+                    Toast.makeText(PosteDetailActivity.this, "Premières Coordonnées géographiques mises à jour", Toast.LENGTH_LONG).show();
+                    step = 1;
+                }
+            }
+        });
+    }
+
+    public void updateCoordonnees1(double latitude, double longitude, View view) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        Map<String, Object> update = new HashMap<>();
+        update.put("longitude1", longitude);
+        update.put("latitude1", latitude);
+
+        db.collection("poste").document(id + "").set(update, SetOptions.merge()).addOnCompleteListener(new OnCompleteListener<Void>() {
+
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    TextView latitudeTextView = findViewById(R.id.poste_detail_latitude1);
+                    TextView longitudeTextView = findViewById(R.id.poste_detail_longitude1);
+                    latitudeTextView.setText(latitude + "");
+                    longitudeTextView.setText(longitude + "");
+                    Toast.makeText(PosteDetailActivity.this, "Deuxièmes Coordonnées géographiques mises à jour", Toast.LENGTH_LONG).show();
+                    step = 2;
+                }
+            }
+        });
+    }
+
+    public void updateCoordonnees2(double latitude, double longitude, View view) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        Map<String, Object> update = new HashMap<>();
+        update.put("longitude2", longitude);
+        update.put("latitude2", latitude);
+
+        db.collection("poste").document(id + "").set(update, SetOptions.merge()).addOnCompleteListener(new OnCompleteListener<Void>() {
+
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    TextView latitudeTextView = findViewById(R.id.poste_detail_latitude2);
+                    TextView longitudeTextView = findViewById(R.id.poste_detail_longitude2);
+                    latitudeTextView.setText(latitude + "");
+                    longitudeTextView.setText(longitude + "");
+                    Toast.makeText(PosteDetailActivity.this, "Troisièmes Coordonnées géographiques mises à jour", Toast.LENGTH_LONG).show();
+                    step = 0;
                 }
             }
         });
@@ -87,6 +178,8 @@ public class PosteDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_poste_detail);
+        toolbar = findViewById(R.id.poste_detail_activity_toolbar);
+        setSupportActionBar(toolbar);
 
         try {
             if (ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -96,26 +189,41 @@ public class PosteDetailActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        libelle = findViewById(R.id.poste_detail_libelle);
-        idposte = findViewById(R.id.poste_detail_id);
-        coordonnees = findViewById(R.id.poste_detail_coordonnees);
-        Log.d("MUANZA", "libellé du poste : " + libelle.getText());
-        Log.d("MUANZA", "ID du poste : " + idposte.getText());
+        TextView latitudeTextView = findViewById(R.id.poste_detail_latitude);
+        TextView longitudeTextView = findViewById(R.id.poste_detail_longitude);
+
+        TextView latitudeTextView1 = findViewById(R.id.poste_detail_latitude1);
+        TextView longitudeTextView1 = findViewById(R.id.poste_detail_longitude1);
+
+        TextView latitudeTextView2 = findViewById(R.id.poste_detail_latitude2);
+        TextView longitudeTextView2 = findViewById(R.id.poste_detail_longitude2);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             String nom = extras.getString("nom");
             id = extras.getInt("id");
+
             double longitude = extras.getDouble("longitude");
             double latitude = extras.getDouble("latitude");
+
+            double longitude1 = extras.getDouble("longitude1");
+            double latitude1 = extras.getDouble("latitude1");
+
+            double longitude2 = extras.getDouble("longitude2");
+            double latitude2 = extras.getDouble("latitude2");
 
             Log.d("MUANZA", "libellé du poste : " + nom);
             Log.d("MUANZA", "ID du poste : " + id);
 
-            libelle.setText(nom);
-            idposte.setText("ID : " + id);
-            coordonnees.setText("Longitude : " + longitude + "; Latitude : " + latitude);
+            toolbar.setTitle(nom);
+            latitudeTextView.setText(latitude + "");
+            longitudeTextView.setText(longitude + "");
 
+            latitudeTextView1.setText(latitude1 + "");
+            longitudeTextView1.setText(longitude1 + "");
+
+            latitudeTextView2.setText(latitude2 + "");
+            longitudeTextView2.setText(longitude2 + "");
 
             Button ouvrirMapButton = findViewById(R.id.poste_detail_ouvrir_map);
             Button getLocationButton = findViewById(R.id.poste_detail_get_position);
@@ -126,7 +234,6 @@ public class PosteDetailActivity extends AppCompatActivity {
                     String uri = String.format(Locale.ENGLISH, "geo:%f,%f", latitude, longitude);
                     Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
                     intent.setPackage("com.google.android.apps.maps");
-
                     if (intent.resolveActivity(getPackageManager()) != null) {
                         startActivity(intent);
                     } else {
@@ -138,7 +245,15 @@ public class PosteDetailActivity extends AppCompatActivity {
                 @RequiresApi(api = Build.VERSION_CODES.M)
                 @Override
                 public void onClick(View v) {
-                    getLocation(v);
+                    if (step == 0) {
+                        getLocation(v);
+                    }
+                    if (step == 1) {
+                        getLocation1(v);
+                    }
+                    if (step == 2) {
+                        getLocation2(v);
+                    }
                 }
             });
         }

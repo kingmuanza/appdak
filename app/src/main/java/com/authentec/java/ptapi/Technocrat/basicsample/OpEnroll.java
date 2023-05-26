@@ -1,5 +1,8 @@
 package com.authentec.java.ptapi.Technocrat.basicsample;
 
+import android.content.SharedPreferences;
+import android.os.Environment;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.upek.android.ptapi.PtConnectionI;
@@ -17,10 +20,20 @@ import com.upek.android.ptapi.struct.PtGuiSampleImage;
 import com.upek.android.ptapi.struct.PtInputBir;
 import com.upek.android.ptapi.struct.PtSessionCfgV5;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.nio.charset.StandardCharsets;
+
+import cm.security.dak.services.Comparateur;
+
 public abstract class OpEnroll extends Thread implements PtGuiStateCallback {
     private static short SESSION_CFG_VERSION = 5;
     private PtConnectionI mConn;
     private int mFingerId;
+    public PtInputBir empreinteSerialisee;
 
     /* access modifiers changed from: protected */
     public abstract void onDisplayMessage(String str);
@@ -128,11 +141,114 @@ public abstract class OpEnroll extends Thread implements PtGuiStateCallback {
     }
 
     private void addFinger(PtInputBir template) {
+        onDisplayMessage("empreinteSerialisee = template");
+        empreinteSerialisee = template;
+        onDisplayMessage("On récupère le doigt");
+        Log.d("MUANZA", "On récupère le doigt");
+        byte[] data = template.bir.data;
+        byte[] dataFormat = template.bir.getPtDataFormat();
+
+        if (data == null) {
+            onDisplayMessage("Il y a exactement zéro donnée");
+        } else {
+            String str = new String(data, StandardCharsets.UTF_8);
+            // onDisplayMessage(str);
+        }
+        Comparateur comparateur;
+        Comparateur.empreinteEnrollee = data;
+
 
         try {
-            this.mConn.setFingerData(this.mConn.storeFinger(template), new byte[]{(byte) this.mFingerId});
+            int storeFingerID = this.mConn.storeFinger(template);
+            byte b = (byte) this.mFingerId;
+            String message = "On a récupèré le doigt : " + storeFingerID + " " + this.mFingerId + " " + b;
+            message += "\n" + "template.form : " + template.form;
+            message += "\n" + "template.slotNr : " + template.slotNr;
+            message += "\n" + "template.bir.factorsMask : " + template.bir.factorsMask;
+            message += "\n" + "template.bir.formatID : " + template.bir.formatID;
+            message += "\n" + "template.bir.formatOwner : " + template.bir.formatOwner;
+            message += "\n" + "template.bir.headerVersion : " + template.bir.headerVersion;
+            message += "\n" + "template.bir.purpose : " + template.bir.purpose;
+            message += "\n" + "template.bir.quality : " + template.bir.quality;
+            message += "\n" + "template.bir.type : " + template.bir.type;
+
+            onDisplayMessage(message);
+            this.mConn.setFingerData(storeFingerID, new byte[]{
+                    (byte) this.mFingerId
+            });
         } catch (PtException e) {
             onDisplayMessage("addFinger failed - " + e.getMessage());
         }
     }
+
+    public File sauvegarderDansUnFichier(PtInputBir template, File mydir) throws IOException {
+        Log.d("MUANZA", "sauvegarderDansUnFichier");
+        Log.d("MUANZA", mydir.getAbsolutePath());
+        File fichier = new File(mydir + "/empreinte.ser");
+
+        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fichier));
+        oos.writeObject(template);
+
+        return fichier;
+    }
+
+
+    public boolean comparer(PtInputBir empreinteStockee) {
+        boolean idem = false;
+        PtInputBir empreinteSerialisee = this.empreinteSerialisee;
+
+        PtBirArgI ptBirArgI = new PtBirArgI() {
+            @Override
+            public PtBir getValue() {
+                return null;
+            }
+
+            @Override
+            public void setValue(PtBir ptBir) {
+
+            }
+        };
+        IntegerArgI integerArgI = new IntegerArgI() {
+            @Override
+            public int getValue() {
+                return mFingerId;
+            }
+
+            @Override
+            public void setValue(int i) {
+
+            }
+        };
+        IntegerArgI integerArgI2 = new IntegerArgI() {
+            @Override
+            public int getValue() {
+                return mFingerId;
+            }
+
+            @Override
+            public void setValue(int i) {
+
+            }
+        };
+        ByteArrayArgI byteArrayArgI = new ByteArrayArgI() {
+            @Override
+            public byte[] getValue() {
+                return new byte[0];
+            }
+
+            @Override
+            public void setValue(byte[] bArr) {
+
+            }
+        };
+        if (empreinteSerialisee != null && empreinteStockee != null) {
+            try {
+                this.mConn.verifyMatch(mFingerId, mFingerId, true, empreinteStockee, empreinteSerialisee, ptBirArgI, integerArgI, integerArgI2, byteArrayArgI);
+            } catch (PtException e) {
+                Log.d("MUANZA", e.getMessage());
+            }
+        }
+        return idem;
+    }
+
 }

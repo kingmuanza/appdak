@@ -6,6 +6,7 @@ public class Vigile {
     String noms;
     String nom;
     String prenom;
+    boolean empreinte;
 
     public int getIdvigile() {
         return idvigile;
@@ -37,5 +38,13 @@ public class Vigile {
 
     public void setPrenom(String prenom) {
         this.prenom = prenom;
+    }
+
+    public boolean isEmpreinte() {
+        return empreinte;
+    }
+
+    public void setEmpreinte(boolean empreinte) {
+        this.empreinte = empreinte;
     }
 }

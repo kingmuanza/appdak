@@ -12,6 +12,8 @@ import com.upek.android.ptapi.struct.PtGuiSampleImage;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 
+import cm.security.dak.services.Comparateur;
+
 public abstract class OpGrab extends Thread implements PtGuiStateCallback {
     private Activity mActivity;
     private PtConnectionI mConn;
@@ -58,6 +60,10 @@ public abstract class OpGrab extends Thread implements PtGuiStateCallback {
     }
 
     private void ShowImage(byte[] aImage, int iWidth) {
+
+        Comparateur comparateur;
+        Comparateur.empreinteScannee = aImage;
+
         FPDisplay.mImage = CreateBitmap(aImage, iWidth);
         FPDisplay.msTitle = "Fingerprint Image";
         this.mActivity.startActivityForResult(new Intent(this.mActivity, FPDisplay.class), 0);

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="32dp"
+    android:background="#eee"
+    tools:context=".fragments.LocalisationActuelleFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="18dp"
+            android:text="Votre localisation actuelle" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/fragment_localisation_actuelle_coordonnees"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Coordonnées géographiques"
+            android:textSize="18dp"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/fragment_localisation_actuelle_heure"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Il y a 5 secondes"
+            android:textSize="18dp"
+            android:textColor="#999"
+            android:layout_marginBottom="16dp"
+            />
+    </LinearLayout>
+
+
+</LinearLayout>

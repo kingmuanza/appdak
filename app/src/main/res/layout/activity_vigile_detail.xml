@@ -5,57 +5,112 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="32dp"
     tools:context=".VigileDetailActivity">
 
-    <TextView
-        android:id="@+id/vigile_detail_nom_vigile"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/vigile_detail_activity_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:background="#303030"
+        android:elevation="4dp"
+        app:subtitle="Enregistrer les empreintes"
+        app:subtitleTextColor="#999"
+        app:title="Vigile"
+        android:paddingLeft="32dp"
+        android:paddingStart="32dp"
+        app:titleTextColor="#fff" />
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Nom du vigile"
-        android:textSize="32dp"
-        android:layout_marginBottom="4dp"
-        />
+        android:orientation="vertical"
+        android:background="#eee"
+        android:padding="32dp">
 
-    <TextView
-        android:id="@+id/vigile_detail_id_vigile"
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="4dp"
+            android:text="Dernière affectation connue :"
+            android:textSize="18dp" />
+        <TextView
+            android:id="@+id/vigile_detail_derniere_affectation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="4dp"
+            android:text="Poste 1"
+            android:textColor="#111"
+            android:textSize="20dp" />
+        <TextView
+            android:id="@+id/vigile_detail_derniere_affectation_coordonnees"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="0dp"
+            android:text="Latitude, Longitude"
+            android:textColor="#999"
+            android:textSize="16dp" />
+    </LinearLayout>
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="ID du vigile"
-        android:textSize="16dp"
-        android:layout_marginBottom="32dp"
-        />
+        android:orientation="vertical"
+        android:padding="32dp">
+
+        <TextView
+            android:id="@+id/vigile_detail_activity_console"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="20dp"
+            android:text=""
+            android:textSize="18dp" />
 
 
-    <TextView
-        android:id="@+id/EnrollmentTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:textSize="18dp"
-        android:layout_marginBottom="4dp"
-        />
+        <TextView
+            android:id="@+id/EnrollmentTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:text=""
+            android:textSize="18dp" />
 
-    <TextView
-        android:id="@+id/textTimer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:textSize="18dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="40dp"
-        />
+        <TextView
+            android:id="@+id/textTimer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="40dp"
+            android:text=""
+            android:textSize="18dp" />
 
-    <Button
-        android:id="@+id/ButtonGrab"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Effectuer le pointage" />
-    <Button
-        android:id="@+id/ButtonQuit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Revenir en arrière" />
+        <ImageView
+            android:id="@+id/vigile_detail_activity_img_empreinte"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="#ffffffff" />
+
+        <Button
+            android:id="@+id/ButtonEnroll"
+            android:background="#FFE3B505"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Enregistrer l'empreinte" />
+
+        <Button
+            android:id="@+id/ButtonVerify"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Verifier l'empreinte" />
+
+        <Button
+            android:id="@+id/ButtonQuit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Revenir en arrière" />
+    </LinearLayout>
 </LinearLayout>

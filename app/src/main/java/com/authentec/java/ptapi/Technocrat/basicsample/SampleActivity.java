@@ -2,6 +2,7 @@ package com.authentec.java.ptapi.Technocrat.basicsample;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -11,7 +12,21 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+
+import cm.security.dak.PosteDetailActivity;
 import cm.security.dak.R;
+import cm.security.dak.VigileDetailActivity;
+import cm.security.dak.models.Vigile;
+import cm.security.dak.services.Comparateur;
+import cm.security.dak.services.GPSTracker;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.SetOptions;
 import com.upek.android.ptapi.PtConnectionAdvancedI;
 import com.upek.android.ptapi.PtConstants;
 import com.upek.android.ptapi.PtException;
@@ -23,8 +38,22 @@ import com.upek.android.ptapi.struct.PtSessionCfgV5;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class SampleActivity extends Activity {
+
+    List<Vigile> vigiles = new ArrayList<Vigile>();
+    List<Vigile> resultats = new ArrayList<Vigile>();
+    GPSTracker mGPSTracker;
+    double latitude;
+    double longitude;
+
     public static final String[] mDSN = {"usb,timeout=500", "wbf,timeout=500"};
     public static final int miRunningOnRealHardware = 1;
     public static final int miUseSerialConnection = 0;
@@ -49,6 +78,33 @@ public class SampleActivity extends Activity {
     public Handler myHandler = new Handler();
     private int seconds = 0;
 
+
+    public void creerPointage() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        String timeStamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new java.util.Date());
+        int randomNum = ThreadLocalRandom.current().nextInt(0, resultats.size());
+        Vigile v = resultats.get(randomNum);
+
+
+        Map<String, Object> update = new HashMap<>();
+        update.put("date", new Date());
+        update.put("idvigile", v.getIdvigile());
+        update.put("nomsVigile", v.getNoms());
+                update.put("empreinte", true);
+
+        update.put("longitude", longitude);
+        update.put("latitude", latitude);
+
+        db.collection("pointage").document(timeStamp).set(update, SetOptions.merge()).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(SampleActivity.this, "Pointage mis à jour sur le serveur", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
     private Runnable updateTimerMethod = new Runnable() {
         public void run() {
             SampleActivity sampleActivity = SampleActivity.this;
@@ -79,6 +135,40 @@ public class SampleActivity extends Activity {
         }
         SetQuitButtonListener();
         this.myHandler.postDelayed(this.updateTimerMethod, 1000);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            mGPSTracker = new GPSTracker(SampleActivity.this);
+            if (mGPSTracker.canGetLocation()) {
+                latitude = mGPSTracker.getLatitude();
+                longitude = mGPSTracker.getLongitude();
+                Log.d("MUANZA", "latitude mGPSTracker : " + latitude);
+                Log.d("MUANZA", "longitude mGPSTracker : " + longitude);
+
+            } else {
+                mGPSTracker.showSettingsAlert();
+            }
+        }
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("vigile")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            Log.d("MUANZA", "On transforme en classe JAVA");
+                            vigiles = task.getResult().toObjects(Vigile.class);
+
+                            for (Vigile v : vigiles) {
+                                if (v.isEmpreinte()) {
+                                    resultats.add(v);
+                                }
+                                Log.d("MUANZA", "ID du vigile : " + v.getIdvigile());
+                            }
+
+                        } else {
+                            Log.w("MUANZA", "Error getting documents.", task.getException());
+                        }
+                    }
+                });
     }
 
     public void logout() {
@@ -180,7 +270,9 @@ public class SampleActivity extends Activity {
                             }
 
                             // access modifiers changed from: protected
+
                             public void onFinished() {
+                                creerPointage();
                                 synchronized (SampleActivity.this.mCond) {
                                     SampleActivity.this.mRunningOp = null;
                                     SampleActivity.this.mCond.notifyAll();

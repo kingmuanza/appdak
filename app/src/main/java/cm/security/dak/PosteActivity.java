@@ -67,8 +67,16 @@ public class PosteActivity extends AppCompatActivity {
                 Intent posteDetailActivityIntent = new Intent(PosteActivity.this, PosteDetailActivity.class);
                 posteDetailActivityIntent.putExtra("nom", resulats.get(i).getLibelle());
                 posteDetailActivityIntent.putExtra("id", resulats.get(i).getIdposte());
+
                 posteDetailActivityIntent.putExtra("longitude", resulats.get(i).getLongitude());
                 posteDetailActivityIntent.putExtra("latitude", resulats.get(i).getLatitude());
+
+                posteDetailActivityIntent.putExtra("longitude1", resulats.get(i).getLongitude1());
+                posteDetailActivityIntent.putExtra("latitude1", resulats.get(i).getLatitude1());
+
+                posteDetailActivityIntent.putExtra("longitude2", resulats.get(i).getLongitude2());
+                posteDetailActivityIntent.putExtra("latitude2", resulats.get(i).getLatitude2());
+
                 startActivity(posteDetailActivityIntent);
 
             }

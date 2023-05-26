@@ -10,6 +10,12 @@ public class Poste {
     double longitude;
     double latitude;
 
+    double longitude1;
+    double latitude1;
+
+    double longitude2;
+    double latitude2;
+
     public int getIdposte() {
         return idposte;
     }
@@ -56,5 +62,37 @@ public class Poste {
 
     public void setLatitude(double latitude) {
         this.latitude = latitude;
+    }
+
+    public double getLongitude1() {
+        return longitude1;
+    }
+
+    public void setLongitude1(double longitude1) {
+        this.longitude1 = longitude1;
+    }
+
+    public double getLatitude1() {
+        return latitude1;
+    }
+
+    public void setLatitude1(double latitude1) {
+        this.latitude1 = latitude1;
+    }
+
+    public double getLongitude2() {
+        return longitude2;
+    }
+
+    public void setLongitude2(double longitude2) {
+        this.longitude2 = longitude2;
+    }
+
+    public double getLatitude2() {
+        return latitude2;
+    }
+
+    public void setLatitude2(double latitude2) {
+        this.latitude2 = latitude2;
     }
 }

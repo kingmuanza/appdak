@@ -20,8 +20,10 @@ import com.google.firebase.firestore.SetOptions;
 
 import cm.security.dak.PosteDetailActivity;
 import cm.security.dak.R;
+import cm.security.dak.services.Comparateur;
 
 import java.io.File;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -39,12 +41,17 @@ public class FPDisplay extends Activity {
     private ImageView mImgv = null;
     public boolean shownotify;
 
+    TextView description;
+
     /* access modifiers changed from: protected */
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fpdisplay);
+
         Button passButton = (Button) findViewById(R.id.pass);
         this.mImgv = (ImageView) findViewById(R.id.img);
+        description = findViewById(R.id.fpdisplay_description);
+
         if (mImage != null) {
             this.mImgv.setImageBitmap(mImage);
         }
@@ -55,6 +62,29 @@ public class FPDisplay extends Activity {
             new File(Environment.getExternalStorageDirectory() + "/Android/finger.bmp");
         } catch (Exception ex) {
             Toast.makeText(getApplicationContext(), "Variable Error  " + ex.toString(), Toast.LENGTH_SHORT).show();
+        }
+
+        description.setText("On va commencer la comparaison");
+
+        if (!(Comparateur.empreinteScannee != null)) {
+           // description.setText( description.getText() + "\nAucune empreinte n'a été scannée");
+        } else {
+            String str = new String(Comparateur.empreinteScannee, StandardCharsets.UTF_8);
+            // description.setText( description.getText() + "\n" + str);
+        }
+        if (!(Comparateur.empreinteEnrollee != null)) {
+            // description.setText( description.getText() + "\nAucune empreinte n'a été enrollée");
+        } else {
+            String str = new String(Comparateur.empreinteEnrollee, StandardCharsets.UTF_8);
+            // description.setText( description.getText() + "\n" + str);
+        }
+
+        Comparateur comparateur = new Comparateur();
+        if (Comparateur.empreinteScannee != null && Comparateur.empreinteEnrollee !=null) {
+            // description.setText( description.getText() + "\nOn a toutes les données");
+            double pourcentage = comparateur.compareByteArrays(Comparateur.empreinteScannee, Comparateur.empreinteEnrollee);
+            // description.setText( description.getText() + "\npourcentage : " + pourcentage + "%");
+
         }
         passButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -77,7 +107,7 @@ public class FPDisplay extends Activity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
-                    TextView coordonnees = findViewById(R.id.poste_detail_coordonnees);
+                    TextView coordonnees = findViewById(R.id.fpdisplay_description);
                     coordonnees.setText("Longitude : " + longitude + "; Latitude : " + latitude);
                     Toast.makeText(FPDisplay.this, "Pointage validé et enregistré", Toast.LENGTH_LONG).show();
                 }

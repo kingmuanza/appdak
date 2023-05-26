@@ -20,4 +20,11 @@
     <string name="navigate_discrete">Navigate - discrete mode</string>
     <string name="quit">Quit</string>
     <string name="OK">OK</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string-array name="absence_motifs_array">
+        <item>Absence</item>
+        <item>Sommeil</item>
+        <item>Autre</item>
+    </string-array>
 </resources>

@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -42,9 +44,29 @@ public class VigileActivity extends AppCompatActivity {
     List<String> vigilesToString(List<Vigile> vigiles) {
         List<String> vigilesString = new ArrayList<String>();
         for (Vigile v : vigiles) {
-            vigilesString.add(v.getNoms());
+            String noms = v.getNoms();
+            if (v.isEmpreinte()) {
+                noms = noms + " *";
+            }
+            if (hasEmpreinteInTheAppareil(v)) {
+                noms = noms + " !!";
+            }
+            vigilesString.add(noms);
         }
         return vigilesString;
+    }
+
+    public boolean hasEmpreinteInTheAppareil(Vigile v) {
+        boolean has = false;
+        File dossier = getDir("empreintes", Context.MODE_PRIVATE);
+        if (dossier.exists()) {
+            int id = v.getIdvigile();
+            File fichier = new File(dossier, "empreinte-"+ id + ".ser");
+            if (fichier.exists()) {
+                has = true;
+            }
+        }
+        return  has;
     }
 
     void createList() {
@@ -60,9 +82,9 @@ public class VigileActivity extends AppCompatActivity {
         liste.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.i("MUANZA", "Y u no see me? " + i);
-                Log.i("MUANZA", "Y u no see me? " + resulatsString.get(i));
-                Log.i("MUANZA", "Y u no see me IGFH  JHHH : ? " + resulats.get(i).getIdvigile());
+                // Log.i("MUANZA", "Y u no see me? " + i);
+                // Log.i("MUANZA", "Y u no see me? " + resulatsString.get(i));
+                // Log.i("MUANZA", "Y u no see me IGFH  JHHH : ? " + resulats.get(i).getIdvigile());
                 Intent vigileDetailActivityIntent = new Intent(VigileActivity.this, VigileDetailActivity.class);
                 vigileDetailActivityIntent.putExtra("nom", resulats.get(i).getNoms());
                 vigileDetailActivityIntent.putExtra("id", resulats.get(i).getIdvigile());
@@ -84,20 +106,20 @@ public class VigileActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            Log.d(TAG, "On transforme en classe JAVA");
+                            // Log.d(TAG, "On transforme en classe JAVA");
                             vigiles = task.getResult().toObjects(Vigile.class);
                             resulats = task.getResult().toObjects(Vigile.class);
-                            Log.d(TAG, "On a transformé en classe JAVA");
+                            // Log.d(TAG, "On a transformé en classe JAVA");
                             vigilesString = vigilesToString(vigiles);
                             resulatsString = vigilesToString(vigiles);
                             createList();
 
                             for (Vigile v : vigiles) {
-                                Log.d(TAG, "ID du vigile : " + v.getIdvigile());
+                                // Log.d(TAG, "ID du vigile : " + v.getIdvigile());
                             }
 
                         } else {
-                            Log.w(TAG, "Error getting documents.", task.getException());
+                            // Log.w(TAG, "Error getting documents.", task.getException());
                         }
                     }
                 });

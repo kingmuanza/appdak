@@ -5,45 +5,263 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="32dp"
     tools:context=".PosteDetailActivity">
 
-    <TextView
-        android:id="@+id/poste_detail_libelle"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/poste_detail_activity_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Nom du poste"
-        android:textSize="32dp"
-        android:layout_marginBottom="4dp"
-        />
+        android:layout_height="64dp"
+        android:background="#303030"
+        android:elevation="4dp"
+        android:paddingStart="32dp"
+        android:paddingLeft="32dp"
+        app:subtitle="Coordonnées géographiques"
+        app:subtitleTextColor="#ddd"
+        app:title="Poste"
+        app:titleTextColor="#fff" />
 
-    <TextView
-        android:id="@+id/poste_detail_id"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="ID du vigile"
-        android:textSize="18dp"
-        android:layout_marginBottom="4dp"
-        />
-    <TextView
-        android:id="@+id/poste_detail_coordonnees"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Coordonnées géographiques"
-        android:textSize="18dp"
-        android:layout_marginBottom="16dp"
-        />
 
-    <Button
-        android:id="@+id/poste_detail_get_position"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Prendre la position actuellle"
-        />
-    <Button
-        android:id="@+id/poste_detail_ouvrir_map"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Voir sur Google Map"
-        />
+        android:layout_marginBottom="32dp">
+
+        <!-- res/layout/example_activity.xml -->
+        <androidx.fragment.app.FragmentContainerView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/choix_activity_fragment_localisation_actuelle"
+            android:name="cm.security.dak.fragments.LocalisationActuelleFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+
+        android:layout_height="match_parent"
+        android:layout_marginBottom="20dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingLeft="32dp"
+        android:paddingTop="16dp"
+        android:paddingRight="32dp"
+        android:paddingBottom="64dp">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+
+            android:layout_height="40dp"
+            android:layout_marginBottom="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="0dp"
+                android:text="Nous allons effectuer 3 prises pour la localisation"
+                android:textFontWeight="700"
+                android:textColor="#000"
+                android:textSize="18dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginBottom="0dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="0dp"
+                android:text="Première prise"
+                android:textFontWeight="700"
+                android:textColor="#000"
+                android:textSize="18dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+
+                android:layout_height="40dp"
+                android:layout_marginBottom="0dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:text="Latitude : "
+                    android:textFontWeight="700"
+                    android:textColor="#000"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:id="@+id/poste_detail_latitude"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:textFontWeight="400"
+                    android:text="Longitude"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:text="Longitude : "
+                    android:textFontWeight="700"
+                    android:textColor="#000"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:id="@+id/poste_detail_longitude"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:textFontWeight="400"
+                    android:text="Longitude"
+                    android:textSize="18dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginBottom="0dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="0dp"
+                android:text="Deuxième prise"
+                android:textFontWeight="700"
+                android:textColor="#000"
+                android:textSize="18dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+
+                android:layout_height="40dp"
+                android:layout_marginBottom="0dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:text="Latitude : "
+                    android:textFontWeight="700"
+                    android:textColor="#000"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:id="@+id/poste_detail_latitude1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:textFontWeight="400"
+                    android:text="Longitude"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:text="Longitude : "
+                    android:textFontWeight="700"
+                    android:textColor="#000"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:id="@+id/poste_detail_longitude1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:textFontWeight="400"
+                    android:text="Longitude"
+                    android:textSize="18dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginBottom="0dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="0dp"
+                android:text="Troisième prise"
+                android:textFontWeight="700"
+                android:textColor="#000"
+                android:textSize="18dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+
+                android:layout_height="40dp"
+                android:layout_marginBottom="0dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:text="Latitude : "
+                    android:textFontWeight="700"
+                    android:textColor="#000"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:id="@+id/poste_detail_latitude2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:textFontWeight="400"
+                    android:text="Longitude"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:text="Longitude : "
+                    android:textFontWeight="700"
+                    android:textColor="#000"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:id="@+id/poste_detail_longitude2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:textFontWeight="400"
+                    android:text="Longitude"
+                    android:textSize="18dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/poste_detail_get_position"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Prendre la position actuellle" />
+
+            <Button
+                android:id="@+id/poste_detail_ouvrir_map"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Voir sur Google Map" />
+        </LinearLayout>
+    </LinearLayout>
+
 </LinearLayout>

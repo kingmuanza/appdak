@@ -5,47 +5,61 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="32dp"
     tools:context="cm.security.dak.AbsenceDetailActivity">
 
-    <TextView
-        android:id="@+id/absence_detail_nom_vigile"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/absence_detail_activity_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:background="#303030"
+        android:elevation="4dp"
+        android:paddingStart="32dp"
+        android:paddingLeft="32dp"
+        app:subtitle="le vigile"
+        app:subtitleTextColor="#ddd"
+        app:title="Signaler une absence"
+        app:titleTextColor="#fff" />
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Nom du vigile"
-        android:textSize="32dp"
-        android:layout_marginBottom="4dp"
-        />
-
-    <TextView
-        android:id="@+id/absence_detail_id_vigile"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="ID du vigile"
-        android:textSize="16dp"
-        android:layout_marginBottom="32dp"
-        />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Ajouter un commentaire"
-        android:textSize="18dp"
-        android:layout_marginBottom="16dp"
-        />
+        android:orientation="vertical"
+        android:padding="32dp">
 
 
-    <EditText
-        android:id="@+id/absence_commentaire"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="0dp"
+            android:text="Raison de l'absence"
+            android:textSize="18dp" />
+        <Spinner
+            android:id="@+id/static_spinner"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            android:outlineSpotShadowColor="@color/black"
+            android:layout_marginTop="20dp" />
 
-        android:hint="Rechercher"
-        />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="Ajouter un commentaire"
+            android:textSize="18dp" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Signaler"
-        />
+
+        <EditText
+            android:id="@+id/absence_commentaire"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+
+            android:hint="Rechercher" />
+        <Button
+            android:id="@+id/absence_detail_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Signaler" />
+    </LinearLayout>
 </LinearLayout>
